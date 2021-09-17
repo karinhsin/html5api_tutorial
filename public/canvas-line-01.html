@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px dotted green;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+
+    <script>
+      const myCanvas = document.querySelector("#myCanvas");
+
+      //getContext可以想成是畫圖的控制器
+      const ctx = myCanvas.getContext('2d');
+
+      //不是css 以下單位都是px
+      ctx.beginPath(); // 重置 path 
+      ctx.moveTo(50, 50); //可以想成是控制器里有一支畫筆 moveTo就是移動那支畫筆
+      ctx.lineTo(200, 300); //畫到某個座標
+      ctx.lineTo(400, 50);
+
+      ctx.strokeStyle = 'red'; // 設定畫筆顏色 
+      ctx.lineWidth = 20;// 設定畫筆粗細 
+      ctx.stroke(); // 套用線條樣式
+    </script>
+  </body>
+</html>
