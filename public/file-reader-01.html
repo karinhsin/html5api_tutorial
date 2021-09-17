@@ -11,9 +11,17 @@
 
     <script>
         const myinput = document.querySelector("#myi");
+        const reader = new FileReader();
+
+        reader.addEventListener("load",event=>{
+            console.log(reader.result);
+        });
         myinput.addEventListener('change',event=>{
             console.log(myinput.files); //FileList
             console.log(myinput.files[0]); //file類型 檔名.type.大小等
+            reader.readAsDataURL(myinput.files[0]); //以什麼格式讀取 
+            //文字檔其實蠻大的 可以把整個字串複製起來看 因為字太多console.log不一定會全部呈現 全部複製丟到網址就可以看到圖片 
+            //把用戶圖片存成這樣缺點是沒有檔名 體積會很大 管理較不便 無法在database裡做preview
         })
     </script>
 </body>
