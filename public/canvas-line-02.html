@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px dotted green;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+
+    <script>
+      const myCanvas = document.querySelector("#myCanvas");
+
+      //getContext可以想成是畫圖的控制器
+      const ctx = myCanvas.getContext("2d");
+
+      ctx.strokeStyle = "red"; // 設定畫筆顏色
+      ctx.lineWidth = 20; // 設定畫筆粗細
+      ctx.lineCap = "round"; //畫出來的線條是圓的 不會有稜角
+      ctx.lineJoin = 'round'; //當兩條線條交會時(畫角的時候)畫出圓的邊角
+
+      //滑鼠按下去的時候要去偵聽滑鼠移動
+      const myMDown = (event) => {
+        console.log(event.button,event.buttons); //判斷按下的是左鍵或右鍵
+
+        //忽略滑鼠的右鍵
+        if(event.button===2 && event.buttons===2){
+          return;
+        }
+        
+        ctx.beginPath();
+        ctx.moveTo(event.offsetX, event.offsetY);
+        myCanvas.addEventListener("mousemove", myMMove);
+      };
+      const myMUp = (event) => {
+        myCanvas.removeEventListener("mousemove", myMMove);
+      };
+      const myMMove = (event) => {
+        ctx.lineTo(event.offsetX, event.offsetY);
+        ctx.stroke(); // 套用線條樣式
+      };
+      myCanvas.addEventListener("mousedown", myMDown);
+      window.addEventListener("mouseup", myMUp);
+    </script>
+  </body>
+</html>
