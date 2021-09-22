@@ -6,6 +6,10 @@
 </head>
 <body>
 <button onclick="doConnect()">連線</button>
+<br>
+<input type="text" id="inp">
+<button onclick="doSend()">送出</button>
+
 <div id="info"></div>
 
 <script>
@@ -15,22 +19,27 @@
     const handler = event => {
         info.innerText += event.type + ': \n';
         if(event.data){
-            info.innerText += event.data + '\n';
+            info.innerText += event.data.toString() + '\n';
         }
-        if(event.type==='open'){
-            socket.send('中文');
-        }
+        // if(event.type==='open'){
+        //     socket.send('中文');
+        // }
     };
 
     function doConnect() {
         socket = new WebSocket('ws://localhost:3000');
-        
-        //三個事件處理器 連線以後觸發
         socket.addEventListener('open', handler);
         socket.addEventListener('message', handler);
         socket.addEventListener('close', handler);
     }
 
+    function doSend() {
+        if(socket && socket.readyState===WebSocket.OPEN){
+            socket.send(document.querySelector('#inp').value);
+        } else {
+            alert('WebSocket 未連線');
+        }
+    }
 </script>
 </body>
 </html>
