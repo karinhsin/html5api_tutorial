@@ -41,12 +41,22 @@
 
 <script>
     const ball = document.querySelector('.ball');
+    const rect = document.querySelector('.rect');
 
     const listener = event =>{
         console.log(event.target, event.target);
     };
-    ball.addEventListener('dragstart',listener); //按住移動才會觸發 沒有移動不會
-    ball.addEventListener('dragend',listener); //移動後放開會彈回去
+    ball.addEventListener('dragstart',listener); //開始拖拉 按住移動才會觸發 沒有移動不會
+    // ball.addEventListener('drag', listener); // 正在拖拉(類似 mousemove)
+    ball.addEventListener('dragend',listener); //結束拖拉 移動後放開會彈回去
+
+    rect.addEventListener('dragenter', listener);  // 拖入
+    //
+    rect.addEventListener('dragover', event=>{
+        event.preventDefault();  // 沒有 preventDefault() 就不會觸發 drop 事件 一定要在 dragover 呼叫 preventDefault() drop事件才會發生
+    });
+    rect.addEventListener('dragleave', listener);  // 拖出
+    rect.addEventListener('drop', listener);
 </script>
 </body>
 </html>
