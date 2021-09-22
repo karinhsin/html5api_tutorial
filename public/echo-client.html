@@ -17,6 +17,9 @@
         if(event.data){
             info.innerText += event.data + '\n';
         }
+        if(event.type==='open'){
+            socket.send('中文');
+        }
     };
 
     function doConnect() {
