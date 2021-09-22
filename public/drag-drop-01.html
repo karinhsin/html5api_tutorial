@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+        position: relative;
+        width: 800px;   
+        height: 600px;
+        background-color: #eeeeee;
+    }
+    .ball{
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius:50%;
+        background-color: red;
+        left: 100px;
+        top: 50px;
+    }
+    .rect{
+        position:absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        background-color: #afa;
+        left: 300px;
+        top: 100px;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="ball" draggable="true"></div>
+        <!-- 下了draggable這個屬性就可以做拖拉 -->
+        <div class="rect"></div>
+    </div>
+
+<script>
+    const ball = document.querySelector('.ball');
+
+    const listener = event =>{
+        console.log(event.target, event.target);
+    };
+    ball.addEventListener('dragstart',listener); //按住移動才會觸發 沒有移動不會
+    ball.addEventListener('dragend',listener); //移動後放開會彈回去
+</script>
+</body>
+</html>
