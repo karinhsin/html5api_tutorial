@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background-color: #EEEEEE;
+        }
+        .ball {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: red;
+            left: 100px;
+            top: 50px;
+            color: white;
+            text-align: center;
+            line-height: 60px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="ball" id="b1">1</div>
+    <div class="ball" id="b2" style="background-color: blue; top: 150px;">2</div>
+    <div class="ball" id="b3" style="background-color: green; top: 250px;">3</div>
+
+</div>
+
+
+<script>
+    const container = document.querySelector('.container');
+    const balls = document.querySelectorAll('.ball');
+    let target = null; //記錄拖拉的對象
+
+    const mDown = event => {
+        const t = event.target;
+        if(t.classList.contains('ball')){
+            console.log(event.target);
+            target = t; 
+            container.addEventListener('mousemove', mMove);
+        }
+    };
+    const mUp = event => {
+        target = null; //放開就設定成空值
+        container.removeEventListener('mousemove', mMove);
+    };
+    const mMove = event => {
+        if(target){
+            target.style.left = event.pageX + 'px';
+            target.style.top = event.pageY + 'px';
+        }
+    };
+    container.addEventListener('mousedown', mDown);
+    window.addEventListener('mouseup', mUp);
+
+</script>
+</body>
+</html>
