@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="doConnect()">連線</button>
+<div id="info"></div>
+
+<script>
+    const info = document.querySelector('#info');
+    let socket;
+
+    const handler = event => {
+        info.innerText += event.type + ': \n';
+        if(event.data){
+            info.innerText += event.data + '\n';
+        }
+    };
+
+    function doConnect() {
+        socket = new WebSocket('ws://localhost:3000');
+        
+        //三個事件處理器 連線以後觸發
+        socket.addEventListener('open', handler);
+        socket.addEventListener('message', handler);
+        socket.addEventListener('close', handler);
+    }
+
+</script>
+</body>
+</html>
