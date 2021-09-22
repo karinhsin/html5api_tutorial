@@ -27,6 +27,7 @@
             color: white;
             text-align: center;
             line-height: 60px;
+            cursor: pointer;
         }
 
     </style>
@@ -50,18 +51,23 @@
         const t = event.target;
         if(t.classList.contains('ball')){
             console.log(event.target);
-            target = t; 
+            target = {
+                t,
+                x: event.offsetX,
+                y: event.offsetY,
+            };
             container.addEventListener('mousemove', mMove);
+            //對象是container 所以球在灰色區域外會卡卡的 改成window才會順
         }
     };
     const mUp = event => {
-        target = null; //放開就設定成空值
+        target = null;
         container.removeEventListener('mousemove', mMove);
     };
     const mMove = event => {
         if(target){
-            target.style.left = event.pageX + 'px';
-            target.style.top = event.pageY + 'px';
+            target.t.style.left = (event.pageX - target.x) + 'px';
+            target.t.style.top = (event.pageY - target.y) + 'px';
         }
     };
     container.addEventListener('mousedown', mDown);
