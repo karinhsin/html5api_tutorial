@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const serveIndex = require('serve-index')
+const serveIndex = require('serve-index');
+const fetch = require('node-fetch');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -39,6 +40,17 @@ app.get('/try-sse', (req, res) => {
     res.write('data: ' + new Date().toLocaleString() + '\n\n');
   }, 2000);
 
+});
+
+//node fetch
+//到http://localhost:3000/yahoo查看
+//像跳板一樣 用戶端跟我要的時候我跟別的主機要 別的主機會認為我是一個用戶端 把資料丟給我 我再丟給用戶
+//yahoo圖片比較特別 都是用絕對路徑寫的(主機不同) 所以可以看得到畫面 如果全部都適用react或vue寫的話這邊就看不到了
+//實務上可以用到fetch的地方 ex.跟氣象局要資料的時候
+app.get('/yahoo', async (req, res) => {
+  const r = await fetch('https://tw.yahoo.com/');
+  const content = await r.text();
+  res.send(content);
 });
 
 // catch 404 and forward to error handler
