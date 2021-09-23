@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="info"></div>
+    <script>
+        const map = new Map(); //彌補obj的缺點 key不用一定要是字串 跟array的map不一樣 但這邊也有對應的意思
+        const obj ={}; //object類型有個缺點就是key必須是字串
+
+        const objA = {name:'Aaron'};
+        const objB = {name:'Bill'};
+
+        obj[objA] = 123;
+        obj[objB] = 456;
+
+        console.log('1:',obj[objA]);
+
+        map.set(objA,'abc');
+        map.set(objB,'def');
+        map.set({},'111');
+        map.set({},'222');
+        console.log('2:',map.get(objA));
+
+        for(let k of [...map.keys()]){
+            console.log('key:',k);
+            console.log('value:',map.get(k));
+        }
+        console.log('--------');
+        let keys = map.keys();
+        let item;
+        while(item=keys.next()){  //keys.next()拿到obj
+        console.log(item);
+        if(!item.value){  //沒加這行if的話程式不會結束（無窮迴圈）
+            break;
+        }
+    }
+    console.log('--------');
+        keys = map.keys();
+        while(item=keys.next()){ 
+        if(item.done){  
+            break;
+        }
+        console.log(item);
+    }
+    </script>
+</body>
+</html>
