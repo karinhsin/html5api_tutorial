@@ -11,6 +11,7 @@
 <button onclick="start(event)">開始算質數</button>
 <div id="info"></div>
 <script>
+	//用new的方式建立一個Worker 後面加路徑
 	const worker = new Worker('javascripts/dedicated-worker-prime-numbers.js');
 	worker.onmessage = event=>{
 		let  {primes, length, howLong} = event.data;
@@ -20,6 +21,7 @@
 		event.target.style.display = 'none';
 		worker.postMessage('start');
 	};
+	//整個主程式不會因為運算就卡在那邊
 </script>
 </body>
 </html>
